@@ -1,0 +1,20 @@
+{
+	"clientId": "590987939249651765",
+	"msg": {
+		"prefix": "?trello",
+		"boardCommands": [
+			"status",
+			"add",
+			"complete",
+			"start"
+		],
+		"commands": [
+			"addBoard"
+		]
+	},
+	"messages": {
+		"invalidFormat": "There was an issue processing your command.",
+		"invalidCommand": "That command is not supported.",
+		"missingParam": "There are additional parameters missing from your command"
+	}
+}
