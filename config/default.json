@@ -5,8 +5,7 @@
 		"boardCommands": [
 			"status",
 			"add",
-			"complete",
-			"start"
+			"set"
 		],
 		"commands": [
 			"addBoard"
@@ -15,6 +14,8 @@
 	"messages": {
 		"invalidFormat": "There was an issue processing your command.",
 		"invalidCommand": "That command is not supported.",
-		"missingParam": "There are additional parameters missing from your command"
+		"missingParam": "There are additional parameters missing from your command",
+		"noBoard": "No board added to this channel, you can add a board using the `addBoard` command.",
+		"unknownError": "An unknown error occurred, this probably isn't your fault."
 	}
 }
