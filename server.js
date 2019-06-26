@@ -11,6 +11,10 @@ app.get('/', (request, response) => {
 	response.sendFile(path.resolve('views', 'index.html'));
 });
 
+app.get('/authorize', (request, response) => {
+	response.sendFile(path.resolve('views', 'authorize.html'));
+});
+
 app.listen(config.port, () => {
 	debug(`Server has started on port ${config.port}`);
 })
