@@ -16,15 +16,17 @@
 			"error": "#ac4142"
 		}
 	},
+	"trello": {
+	},
 	"messages": {
 		"invalidFormat": "There was an issue processing your command.",
 		"invalidCommand": "That command is not supported.",
 		"missingParam": "There are additional parameters missing from your command",
 		"noBoard": "No board added to this channel, you can add a board using the `addBoard` command.",
 		"unknownError": "An unknown error occurred, this probably isn't your fault.",
-		"helpError": "That is not a valid help parameter"
+		"helpError": "That is not a valid help parameter",
+		"genericHelp": "You can add a board to your channel by visiting the following link: {{authorizeLink}}"
 	},
 	"helpMessages": {
-		"addBoard": "You can add a board to your channel by visiting the following link: `linketylink`"
 	}
 }

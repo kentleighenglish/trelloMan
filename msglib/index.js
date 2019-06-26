@@ -1,6 +1,9 @@
 const debug = require('debug')('app:msglib');
 const debugErr = require('debug')('app:error');
 const { msg: msgConfig, messages, helpMessages } = require('config');
+const { get } = require('lodash');
+
+const trelloLib = require('../trellolib');
 
 const regexEscape = string => string.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
 
@@ -29,7 +32,6 @@ const onMessage = async (msg) => {
 			const result = await runCommand(commandData, channelData, channel);
 			
 			if (result) {
-				console.log(msg);
 				msg.delete();
 			}
 		} catch(e) {
@@ -84,7 +86,7 @@ const runCommand = async (commandData, channelData, channel) => {
 					await sendFormatted(channel, helpMessages[param]);
 				}
 			} else {
-				await sendFormatted(channel, 'generic help');
+				await sendFormatted(channel, messages.genericHelp);
 			}
 		break;
 		default:
@@ -96,14 +98,35 @@ const runCommand = async (commandData, channelData, channel) => {
 	return true;
 }
 
-const sendFormatted = (channel, content, type) => {	
+const sendFormatted = (channel, content, type, data = {}) => {
 	return channel.send('', {
 		embed: {
 			title: type === 'error' ? 'Error' : 'TrelloMan',
-			description: content,
+			description: populateTemplate(content, data),
 			color: type === 'error' ? hexToDecimal(msgConfig.colours.error) : hexToDecimal(msgConfig.colours.main),
 		}
 	});
+}
+
+const populateTemplate = (string, data) => {
+	data = {
+		authorizeLink: trelloLib.authorizeLink,
+		...data
+	}
+	
+	const unpopulated = string.match(/\{\{[A-z\.]*\}\}/g);
+	
+	
+	unpopulated.map(unparsedVar => {
+		var parsedVar = unparsedVar.replace(/\{|\}/g, '');
+		var populated = get(data, parsedVar);
+		
+		if (populated) {
+			string = string.replace(unparsedVar, populated);
+		}
+	});
+	
+	return string;
 }
 
 module.exports = {
